@@ -1,0 +1,102 @@
+﻿@page "/chat"
+@{
+    ViewBag.Header = "Welcome To Chat Room";
+}
+@section Styles{
+        <style>
+                #chat-container{
+                    width:60%;
+                }
+                footer{
+                    position:sticky;
+                    bottom:0;
+                    background:white;
+                    z-layer:1;
+                }
+                main{
+            justify-content: space-between;
+            flex-direction: column;
+                }
+        </style>
+}
+
+    <div id="chat-container">
+
+    </div>
+    <footer class="text-center text-lg-start border-top p-3">
+        <form id="msg-form" class="form-inline" style="display: flex; justify-content: center; ">
+            <div class="form-group mb-2">
+                <input autocomplete="off" name="msg" style="width:60vw" type="text" class="form-control rounded-0" placeholder="Start Typing here...">
+            </div>
+            <button type="submit" class="btn btn-outline-info mb-2 rounded-0">Send</button>
+        </form>
+    </footer>
+
+
+    <script>
+        const chatViewRect = document.getElementById('chat-container');
+const inputMsg = document.getElementById('msg-input');
+const msgForm = document.querySelector('form#msg-form');
+const userName = '@HttpContext.User.Identity!.Name';
+let chatWebSocket;
+
+window.addEventListener('DOMContentLoaded', () => {
+    initialiseWS();
+});
+
+window.addEventListener('beforeunload', () => {
+    chatWebSocket.removeEventListener('message', onMessage);
+    chatWebSocket.close();
+    msgForm.addEventListener('submit', onSubmitMessage);
+});
+
+const initialiseWS = () => {
+    let address = `wss://${window.location.host}`;
+    chatWebSocket = new WebSocket(address);
+    chatWebSocket.addEventListener('message', onMessage);
+    chatWebSocket.addEventListener('open', msgForm.addEventListener('submit', onSubmitMessage),{once:true});
+};
+
+
+const onSubmitMessage = (ev) => {
+    ev.preventDefault();
+    let msg = ev.target.elements.msg.value;
+    if (msg != '') {
+        chatWebSocket.send(msg);
+        ev.target.elements.msg.value = '';
+    }
+}
+//It will look like that at final
+//<div class="card">
+//    <div class="card-body">
+//        Server: Hello!
+//    </div>
+//</div>
+const onMessage = (ev) => {
+    const msgAuthor = ev.data.split(':')[0];
+    const card = createCard(ev.data, getColorClassForAuthor(msgAuthor));
+    chatViewRect.appendChild(card);
+};
+
+const getColorClassForAuthor = (author) => {
+    switch (author) {
+        case 'Server':
+            return 'text-primary';
+        case 'Private':
+            return 'text-info';
+        case userName:
+            return 'text-success';
+    }
+}
+
+const createCard = (body, elemClass) => {
+    const card = document.createElement('div');
+    const cardBody = document.createElement('div');
+    cardBody.classList = `card-body ${elemClass}`;
+    cardBody.textContent = body;
+    card.appendChild(cardBody);
+    card.classList = 'card m-1';
+    return card;
+};
+
+    </script>

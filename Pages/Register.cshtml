@@ -1,0 +1,29 @@
+﻿@page "/register"
+@model WebSocketChat.Pages.RegisterPageModel
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Header = "Register Page";
+}
+      <span class="fs-2 m-3">Join us today!</span>
+<div class="card" >
+  <div class="card-body">
+<form method="post">
+  <div class="form-group m-2">
+    <label>Nickname</label>
+    <input asp-for="Form.Name" type="text" class="form-control" placeholder="Enter nickname">
+    <span asp-validation-for="Form.Name" class="text-danger"></span>
+  </div>
+  <div class="form-group m-2">
+    <label>Password</label>
+    <input type="password" class="form-control" asp-for="Form.Password"  placeholder="Password">
+    <span asp-validation-for="Form.Password" class="text-danger"></span>
+  </div>
+  <div class="form-group m-2">
+    <label>Password</label>
+    <input type="password" class="form-control" asp-for="Form.Password2"  placeholder="Password Confirm">
+    <span asp-validation-for="Form.Password2" class="text-danger"></span>
+  </div>
+  <button type="submit" class="btn btn-primary m-2">Submit</button>
+</form>
+</div>
+</div>

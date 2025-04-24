@@ -1,0 +1,24 @@
+﻿@page "/login"
+@model WebSocketChat.Pages.LoginPageModel
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewBag.Header = "Login Page";
+}
+      <span class="fs-2 m-3">Welcome back!</span>
+<div class="card" >
+  <div class="card-body">
+<form method="post">
+  <div class="form-group m-2">
+    <label>Nickname</label>
+    <input type="text" class="form-control" asp-for="Form.Name" placeholder="Enter nickname"/>
+    <span asp-validation-for="Form.Name" class="text-danger"></span>
+  </div>
+  <div class="form-group m-2">
+    <label>Password</label>
+    <input type="password" class="form-control" asp-for="Form.Password" placeholder="Password"/>
+    <span asp-validation-for="Form.Password" class="text-danger"></span>
+  </div>
+  <button type="submit" class="btn btn-primary m-2" >Submit</button>
+</form>
+</div>
+</div>
