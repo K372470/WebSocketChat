@@ -82,7 +82,7 @@ namespace WebSocketChat.Services
             try
             {
                 var targetConnection = Connections.First((x) => x.Value == to).Key;
-                await SendPrivateMessage($"Private: {Connections[caller]} whispered: \"{message}\"", targetConnection);
+                await SendPrivateMessage($"Private from {Connections[caller]}: \"{message}\"", targetConnection);
             }
             catch
             {

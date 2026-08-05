@@ -3,10 +3,10 @@ using WebSocketChat.Utils;
 
 namespace WebSocketChat.Services
 {
-    public class MemoryDataBase : IDataBase
+    public class MemoryUserDataBase : IUserDataBase
     {
         private List<UserData> UserPasswords { get;set; }
-        public MemoryDataBase()
+        public MemoryUserDataBase()
         {
             UserPasswords = new() {
                 new("a","1234".Encode()),

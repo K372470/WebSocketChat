@@ -1,6 +1,6 @@
 ﻿namespace WebSocketChat.Services
 {
-    public interface IDataBase
+    public interface IUserDataBase
     {
         public void RegisterUser(string name, string password);
         public bool UserExists(string name);

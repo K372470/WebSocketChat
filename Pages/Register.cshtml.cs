@@ -13,9 +13,9 @@ namespace WebSocketChat.Pages
         [BindProperty, Required]
         public RegisterForm Form { get; set; }
 
-        private readonly IDataBase db;
+        private readonly IUserDataBase db;
 
-        public RegisterPageModel(IDataBase db)
+        public RegisterPageModel(IUserDataBase db)
         {
             this.db = db;
         }

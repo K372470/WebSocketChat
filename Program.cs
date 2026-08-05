@@ -15,7 +15,7 @@ builder.Services.AddAuthentication("Cookies").AddCookie((x) =>
 });
 builder.Services.AddAuthorization();
 builder.Services.AddSingleton<ChatService>();
-builder.Services.AddSingleton<IDataBase, MemoryDataBase>();
+builder.Services.AddSingleton<IUserDataBase, MemoryUserDataBase>();
 builder.WebHost.UseUrls("http://localhost:5000", "https://localhost:5001");
 
 
